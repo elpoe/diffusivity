@@ -34,7 +34,7 @@ end
 
 TRANS=abs(expm(K*dt)); %transitionmatrix
 
-Dvec=linspace(Dmin,Dmax,states)'; %diffusionskonstanterne er lige fordelt mellem minimum og maximumsværdien
+Dvec=linspace(Dmin,Dmax,states)'; %diffusionskonstanterne er lige fordelt mellem minimum og maximumsvÃ¦rdien
 
 z=4*dt;
 z1=pi*z;
