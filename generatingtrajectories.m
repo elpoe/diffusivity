@@ -10,9 +10,8 @@ dt=0.1;
 
 %% Transitionmatrices
 %The first matrix below is for a state, which can be visited by its two
-%nearest neighbours
-
-%generate matrix with rates by shifting the row vector k 
+%nearest neighbours. There is no bias towards Dmin. 
+%generate matrix with rates by shifting the row vector kvec
 kvec=zeros(1,states);
 kvec(1)=-2*k;
 kvec(2)=k;
@@ -33,10 +32,7 @@ for i=1:states
     end
 end
 
-% This second matrix is for a state which only can be visited by its 'upper'
-% neighbour - the particle tends to states with lower diffusion constants. 
-% We will also add a symmetric matrix, with smaller transition rate, to
-% allow for the small possiblity of 'upwards' drift in the diffusion regime. 
+% This second matrix is for a system in which the particle tends to states with lower diffusion constants. 
 % kvecbig=zeros(1,states);
 % kvecbig(1)=-k;
 % kvecbig(2)=k;
@@ -54,7 +50,7 @@ end
 % end
 % 
 % % Symmetric matrix
-% ksmall=k/3;
+% ksmall=k/3; %this rate determines the slight upwards diffusion in the state space. 
 % kvecsmall=zeros(1,states);
 % kvecsmall(1)=-2*ksmall;
 % kvecsmall(2)=ksmall;
@@ -77,7 +73,7 @@ end
 % 
 % K=Ksmall+Kbig;
 %%
-TRANS=abs(expm(K*dt));
+TRANS=abs(expm(K*dt)); %transition probability matrix
 
 %inverse cumulative probability function
 invs=@(z,D) 2*sqrt(D*dt)*erfinv(2*z-1); 
@@ -106,14 +102,15 @@ end
 traj=[X(:,1),X(:,2)];
 save('randomdata.txt','traj','-ascii')
 
-Z=zeros(steps-1,2);
-for i=1:steps-1
-    if i==1
-    Z(i,:)=traj(i,:);
-    else
-    Z(i,:)=Z(i-1,:)+traj(i,:);
-    end
-end
-plot(Z(:,1),Z(:,2),'-')
-xlabel('x');
-ylabel('y');
+%uncomment the lines below for a plot of the trajectory
+%Z=zeros(steps-1,2);
+%for i=1:steps-1
+%    if i==1
+%    Z(i,:)=traj(i,:);
+%    else
+%    Z(i,:)=Z(i-1,:)+traj(i,:);
+%    end
+%end
+%plot(Z(:,1),Z(:,2),'-')
+%xlabel('x');
+%ylabel('y');
