@@ -93,7 +93,7 @@ for i=1:steps
         prob=m(i);
         s=l(i-1);
         A=cumsum(TRANS(:,s));
-        l(i)=find(cumsum(A)>=prob,1,'first');
+        l(i)=find(A>=prob,1,'first');
         X(i,1)=invs(u(i,1),Dvec(l(i)));
         X(i,2)=invs(u(i,2),Dvec(l(i)));
     end
