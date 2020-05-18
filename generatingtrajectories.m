@@ -103,14 +103,15 @@ traj=[X(:,1),X(:,2)];
 save('randomdata.txt','traj','-ascii')
 
 %uncomment the lines below for a plot of the trajectory
-%Z=zeros(steps-1,2);
+%Z=zeros(steps+1,2);
 %for i=1:steps-1
-%    if i==1
-%    Z(i,:)=traj(i,:);
-%    else
-%    Z(i,:)=Z(i-1,:)+traj(i,:);
-%    end
+%   if i==1
+%   Z(i,:)=[0 0];
+%   else
+%   Z(i,:)=Z(i-1,:)+traj(i-1,:);
+%   end
 %end
+%figure(1)
 %plot(Z(:,1),Z(:,2),'-')
 %xlabel('x');
 %ylabel('y');
