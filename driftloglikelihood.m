@@ -1,19 +1,20 @@
-function [out]=hmmloggenlow(obs,ksmall,k,dt,Dmin,Dmax)
+function [out]=hmmloggenlow(obs,k1,k2,dt,Dmin,Dmax)
 
 %obs=load('randomdata.txt'); - load generated steps
 
-states=10; %number of states
+states=; %number of states, must be given!
 N=length(obs); %number of steps
 P0=zeros(states,1); 
 P0(:)=deal(1/states); %uniform initial state
 
+
 %% A transition rate matrix is generated below. The first matrix generated, Kbig, generates the bias towards lower 
 %% diffusivity states
 kvecbig=zeros(1,states);
-kvecbig(1)=-k;
-kvecbig(2)=k;
+kvecbig(1)=-k2;
+kvecbig(2)=k2;
 kaltbig=zeros(1,states);
-kaltbig(end)=-k;
+kaltbig(end)=-k2;
 Kbig=zeros(states,states);
 for i=1:states
     if i==1
@@ -25,14 +26,14 @@ for i=1:states
     end
 end
 
-%The tridiagonal, Ksmall, contains transition rates for transition to nearest neighbours, with reflexive boundary conditions.
+%The tridiagonal, Ksmall, contains transition rates for transitions to nearest neighbours, with reflexive boundary conditions.
 kvecsmall=zeros(1,states);
-kvecsmall(1)=-2*ksmall;
-kvecsmall(2)=ksmall;
-kvecsmall(end)=ksmall;
+kvecsmall(1)=-2*k1;
+kvecsmall(2)=k1;
+kvecsmall(end)=k1;
 kaltsmall=zeros(1,states);
-kaltsmall(1)=-ksmall;
-kaltsmall(2)=ksmall;
+kaltsmall(1)=-k1;
+kaltsmall(2)=k1;
 
 Ksmall=zeros(states,states);
 for i=1:states
