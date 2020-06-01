@@ -1,12 +1,15 @@
 %these values must be given!
-states=10;
-Dmin=5;
-Dmax=50;
-k=0.2;
-steps=500;
+states=
+Dmin=
+Dmax=
+k=
+steps=
+%k1=
+%k2=
+%k1 and k2 are for the model with bias to lower diffusion states
 
 Dvec=linspace(Dmin,Dmax,states);
-dt=0.1;
+dt=
 
 %% Transitionmatrices
 %The first matrix below is for a state, which can be visited by its two
@@ -34,10 +37,10 @@ end
 
 % This second matrix is for a system in which the particle tends to states with lower diffusion constants. 
 % kvecbig=zeros(1,states);
-% kvecbig(1)=-k;
-% kvecbig(2)=k;
+% kvecbig(1)=-k2;
+% kvecbig(2)=k2;
 % kaltbig=zeros(1,states);
-% kaltbig(end)=-k;
+% kaltbig(end)=-k2;
 % Kbig=zeros(states,states);
 % for i=1:states
 %     if i==1
@@ -52,12 +55,12 @@ end
 % % Symmetric matrix
 % ksmall=k/3; %this rate determines the slight upwards diffusion in the state space. 
 % kvecsmall=zeros(1,states);
-% kvecsmall(1)=-2*ksmall;
-% kvecsmall(2)=ksmall;
-% kvecsmall(end)=ksmall;
+% kvecsmall(1)=-2*k1;
+% kvecsmall(2)=k1;
+% kvecsmall(end)=k1;
 % kaltsmall=zeros(1,states);
-% kaltsmall(1)=-ksmall;
-% kaltsmall(2)=ksmall;
+% kaltsmall(1)=-k1;
+% kaltsmall(2)=k1;
 % 
 % Ksmall=zeros(states,states);
 % for i=1:states
@@ -102,16 +105,4 @@ end
 traj=[X(:,1),X(:,2)];
 save('randomdata.txt','traj','-ascii')
 
-%uncomment the lines below for a plot of the trajectory
-%Z=zeros(steps+1,2);
-%for i=1:steps-1
-%   if i==1
-%   Z(i,:)=[0 0];
-%   else
-%   Z(i,:)=Z(i-1,:)+traj(i-1,:);
-%   end
-%end
-%figure(1)
-%plot(Z(:,1),Z(:,2),'-')
-%xlabel('x');
-%ylabel('y');
+
